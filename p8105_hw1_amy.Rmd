@@ -1,0 +1,80 @@
+---
+title: 'Data Science: Homework 1'
+author: "Amy Hodges"
+date: "2026-10-13"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#Uploading data
+data("penguins", package = "palmerpenguins")
+
+#Exploring Variables
+head(penguins)
+colnames(penguins)
+```
+
+This dataset includes data about penguins, including species, island, sex, year, bill length, bill depth, flipper length, and body mass.
+
+```{r}
+#Size of dataset
+nrow(penguins)
+ncol(penguins)
+```
+
+This dataset contains `r nrow(penguins)` observations and `r ncol(penguins)` variables.
+
+```{r}
+#Mean flipper length
+mean_flipper_length <- mean(penguins$flipper_length_mm, na.rm=TRUE)
+```
+
+The mean flipper length is `r round(mean_flipper_length, 1)` mm.
+
+```{r}
+#Plot of flipper length vs. bill length, colored by species
+library(ggplot2)
+penguin_scatterplot <- 
+ggplot(penguins, aes(x=bill_length_mm, y=flipper_length_mm, 
+color= species)) + 
+geom_point() +
+labs(title="Penguin Flipper Length vs. Bill Length by Species",
+    x = "Bill Length (mm)",
+    y = "Flipper Length (mm)",
+    color = "Species") +
+    theme_minimal()
+
+#Saving Plot
+ggsave(
+  filename = "penguin_scatterplot.png",
+  plot = penguin_scatterplot,
+  width = 6,
+  height = 4,
+  dpi = 300
+)
+
+#Create dataframe
+hw1_df <- data.frame(normal_sample = rnorm(10, mean = 0, sd = 1),
+is_positive = logical(10),
+character_vector = c("Apple", "Banana", "Cherry", "Raspberry", "Elderberry", 
+                     "Fig", "Lime", "Honeydew", "Kiwi", "Lemon"),
+factor_vector=factor(sample(c("Low", "Medium", "High"), 10, replace = TRUE))
+)
+
+hw1_df$is_positive <- hw1_df$normal_sample > 0
+
+print(hw1_df)
+
+#Calculating means
+mean(hw1_df$normal_sample)
+mean(hw1_df$is_positive)
+mean(hw1_df$character_vector)
+mean(hw1_df$factor_vector)
+```
+
+The mean of the random sample from a normal distribution is `r mean(hw1_df$normal_sample)` and the mean of the logical vector indicating whether values are greater than zero is `r mean(hw1_df$is_positive)`. 
+The other two means yielded a results of NA because they are not numerical variables. The logical variable mean reflects the proportion of TRUE outcomes in the dataset.
