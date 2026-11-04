@@ -387,9 +387,12 @@ nrow(penguins)</code></pre>
 <pre class="r"><code>#Mean flipper length
 mean_flipper_length &lt;- mean(penguins$flipper_length_mm, na.rm=TRUE)</code></pre>
 <p>The mean flipper length is 200.9 mm.</p>
-<pre class="r"><code>#Plot of flipper length vs. bill length, colored by species
-library(ggplot2)
-penguin_scatterplot &lt;- 
+<pre class="r"><code># JAS note: let&#39;s talk about spacing from the start of the line, as this can help visually to see where a specific function or command ends. 
+
+#Plot of flipper length vs. bill length, colored by species
+library(ggplot2)</code></pre>
+<pre><code>## Warning: package &#39;ggplot2&#39; was built under R version 4.4.3</code></pre>
+<pre class="r"><code>penguin_scatterplot &lt;- 
 ggplot(penguins, aes(x=bill_length_mm, y=flipper_length_mm, 
 color= species)) + 
 geom_point() +
@@ -409,7 +412,11 @@ ggsave(
 )</code></pre>
 <pre><code>## Warning: Removed 2 rows containing missing values or values outside the scale range
 ## (`geom_point()`).</code></pre>
-<pre class="r"><code>#Create dataframe
+<pre class="r"><code># JAS note: in terms of organization, this would be good to move to it&#39;s own section or R chunk, becuase it is now a separate task. 
+# JAS note: for the logical vector, try: is_positive = ifelse(normal_sample &gt; 0, TRUE, FALSE)
+# JAS note: your factor doesn&#39;t always have three levels, because you&#39;ve used sample, so sometimes it only has two. Could have hard coded it with different levels. 
+
+#Create dataframe
 hw1_df &lt;- data.frame(normal_sample = rnorm(10, mean = 0, sd = 1),
 is_positive = logical(10),
 character_vector = c(&quot;Apple&quot;, &quot;Banana&quot;, &quot;Cherry&quot;, &quot;Raspberry&quot;, &quot;Elderberry&quot;, 
@@ -421,21 +428,21 @@ hw1_df$is_positive &lt;- hw1_df$normal_sample &gt; 0
 
 print(hw1_df)</code></pre>
 <pre><code>##    normal_sample is_positive character_vector factor_vector
-## 1     -0.1851296       FALSE            Apple        Medium
-## 2      0.1594932        TRUE           Banana          High
-## 3      0.6422541        TRUE           Cherry          High
-## 4     -0.9616980       FALSE        Raspberry        Medium
-## 5      0.4378132        TRUE       Elderberry           Low
-## 6      0.3115338        TRUE              Fig        Medium
-## 7      1.5916289        TRUE             Lime           Low
-## 8     -0.5342638       FALSE         Honeydew        Medium
-## 9      0.1298494        TRUE             Kiwi        Medium
-## 10    -1.1192771       FALSE            Lemon           Low</code></pre>
+## 1      0.4848037        TRUE            Apple          High
+## 2      0.5537747        TRUE           Banana        Medium
+## 3     -0.9240201       FALSE           Cherry        Medium
+## 4     -1.3159650       FALSE        Raspberry           Low
+## 5     -0.6866777       FALSE       Elderberry          High
+## 6      0.5468003        TRUE              Fig           Low
+## 7      0.1526122        TRUE             Lime          High
+## 8     -0.2711957       FALSE         Honeydew          High
+## 9     -0.8469254       FALSE             Kiwi          High
+## 10     0.2914490        TRUE            Lemon           Low</code></pre>
 <pre class="r"><code>#Calculating means
 mean(hw1_df$normal_sample)</code></pre>
-<pre><code>## [1] 0.04722042</code></pre>
+<pre><code>## [1] -0.2015344</code></pre>
 <pre class="r"><code>mean(hw1_df$is_positive)</code></pre>
-<pre><code>## [1] 0.6</code></pre>
+<pre><code>## [1] 0.5</code></pre>
 <pre class="r"><code>mean(hw1_df$character_vector)</code></pre>
 <pre><code>## Warning in mean.default(hw1_df$character_vector): argument is not numeric or
 ## logical: returning NA</code></pre>
@@ -444,11 +451,12 @@ mean(hw1_df$normal_sample)</code></pre>
 <pre><code>## Warning in mean.default(hw1_df$factor_vector): argument is not numeric or
 ## logical: returning NA</code></pre>
 <pre><code>## [1] NA</code></pre>
-<p>The mean of the random sample from a normal distribution is 0.0472204
-and the mean of the logical vector indicating whether values are greater
-than zero is 0.6. The other two means yielded a results of NA because
-they are not numerical variables. The logical variable mean reflects the
-proportion of TRUE outcomes in the dataset.</p>
+<pre class="r"><code># JAS note: missing last part of question 2: In some cases, you can explicitly convert variables from one type to another. Write a code chunk that applies the as.numeric function to the logical, character, and factor variables (please show this chunk but not the output). What happens, and why? Does this help explain what happens when you try to take the mean?</code></pre>
+<p>The mean of the random sample from a normal distribution is
+-0.2015344 and the mean of the logical vector indicating whether values
+are greater than zero is 0.5. The other two means yielded a results of
+NA because they are not numerical variables. The logical variable mean
+reflects the proportion of TRUE outcomes in the dataset.</p>
 
 
 
